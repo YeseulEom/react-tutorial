@@ -1,0 +1,18 @@
+docker-compose -f docker-compose.yml up -d cli
+
+docker exec -it cli bash
+
+peer chaincode install -n mb -v 1.1 -p github.com/
+
+peer chaincode instantiate -n mb -v 1.1 -C mychannel -P "OR ('Org1MSP.member')" -c '{"Args":[]}'
+
+peer chaincode invoke -n mb -C mychannel -c '{"Args":["createMarble","marble1","green","100","choi"]}'
+
+peer chaincode query -n mb -C mychannel -c '{"Args":["readMarble","marble1"]}'
+
+peer chaincode invoke -n mb -C mychannel -c '{"Args":["transferMarble","marble1","Lee"]}'
+
+peer chaincode query -n marble -C mychannel -c '{"Args":["readMarble","marble1"]}'
+
+http://192.168.56.1:8080/
+cmd - ipconfig - (IPv4аж╪р):8080
